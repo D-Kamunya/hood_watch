@@ -105,6 +105,23 @@ class Business(models.Model):
 
 
 
+class Post(models.Model):
+    """
+    Post class to define Post Objects
+    """
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    neighbourhood = models.ForeignKey(NeighbourHood, on_delete=models.CASCADE)
+    post_title = models.CharField(max_length =150)
+    post_text = models.TextField()
+    upload_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.post_title
+
+
+    class Meta:
+        ordering = ['upload_date'] 
+
 
 
 
