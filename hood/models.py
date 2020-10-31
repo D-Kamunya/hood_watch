@@ -1,9 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
+from pyuploadcare.dj.models import ImageField
 import datetime as dt
 
 class NeighbourHood(models.Model):
     hood_admin = models.ForeignKey(User, on_delete=models.CASCADE)
+    hood_photo = ImageField(blank=True, manual_crop="")
     hood_name = models.TextField(max_length=500)
     hood_location = models.CharField(max_length=60, blank=True)
     hood_occupants = models.IntegerField(default=0)
