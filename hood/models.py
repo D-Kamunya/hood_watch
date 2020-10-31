@@ -64,7 +64,44 @@ class Business(models.Model):
     class Meta:
         ordering = ['create_at'] 
 
-    
+    def create_business(self):
+      '''
+      Saves Business instance to db
+      '''
+      self.save()
+
+    def delete_business(self):
+      '''
+      Deletes Business instance from db
+      '''
+      self.delete()
+      
+
+    @classmethod
+    def get_all_bs_by_hood(cls,hood_id):
+      '''
+      Returns all Businesses in the hood objects from db
+      '''
+      bs=cls.objects.filter(neighbourhood_id=hood_id)
+      return bs 
+
+
+    @classmethod
+    def find_business(cls,bs_id):
+      '''
+      Returns Business based on its id
+      '''
+      bs=cls.objects.get(id=bs_id)
+      return bs
+
+
+    @classmethod
+    def search_business(cls, name):
+      return cls.objects.filter(bs_name__icontains=name)
+
+
+
+
 
 
 
