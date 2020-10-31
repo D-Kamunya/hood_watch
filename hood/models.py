@@ -49,6 +49,25 @@ class NeighbourHood(models.Model):
       return hood
 
 
+class Business(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    neighbourhood = models.ForeignKey(NeighbourHood, on_delete=models.CASCADE)
+    bs_name = models.TextField(max_length=120)
+    bs_description = models.TextField(blank=True)
+    bs_photo = ImageField(blank=True, manual_crop="")
+    bs_email = models.EmailField(max_length=254)
+    create_at=models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.bs_name
+
+    class Meta:
+        ordering = ['create_at'] 
+
+    
+
+
+
 
         
       
