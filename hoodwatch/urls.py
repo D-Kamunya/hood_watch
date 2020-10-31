@@ -16,8 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls.conf import include
+from hood import views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('hood.urls'))
+    path('',include('hood.urls')),
+    path('accounts/register',views.register_user,name='register_user' ),
 ]
