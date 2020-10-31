@@ -11,3 +11,45 @@ class NeighbourHood(models.Model):
 
     def __str__(self):
         return self.hood_name
+
+    class Meta:
+        ordering = ['create_at'] 
+
+    def create_neighbourhood(self):
+      '''
+      Saves NeighbourHood instance to db
+      '''
+      self.save()
+
+    @classmethod
+    def delete_neighbourhood(cls,hood_id):
+      '''
+      Deletes NeighbourHood based on its id
+      '''
+      cls.objects.filter(id=hood_id).delete()
+      
+
+    @classmethod
+    def get_all_neighbourhoods(cls):
+      '''
+      Returns all NeighbourHood objects from db
+      '''
+      hoods=cls.objects.all()
+      return hoods 
+
+
+    @classmethod
+    def find_neighbourhood(cls,hood_id):
+      '''
+      Returns NeighbourHood based on its id
+      '''
+      hood=cls.objects.get(id=hood_id)
+      return hood
+
+
+
+        
+      
+
+
+   
