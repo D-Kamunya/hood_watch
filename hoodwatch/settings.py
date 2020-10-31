@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'hood.apps.HoodConfig',
     'users.apps.UsersConfig',
-    'bootstrap3'
+    'bootstrap3',
+    'pyuploadcare.dj'
 ]
 
 MIDDLEWARE = [
@@ -57,7 +58,7 @@ ROOT_URLCONF = 'hoodwatch.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -69,6 +70,13 @@ TEMPLATES = [
         },
     },
 ]
+
+
+UPLOADCARE = {
+    'pub_key': '1ad3d32be06d946ab275',
+    'secret': '79b77981ea5485f8983e'
+}
+
 
 WSGI_APPLICATION = 'hoodwatch.wsgi.application'
 
