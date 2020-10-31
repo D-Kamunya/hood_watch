@@ -44,3 +44,8 @@ def user_login(request):
             return HttpResponseRedirect(reverse("user_login")) 
     else:
         return render(request, "registration/login_form.html")   
+
+
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect(reverse("user_login"))          
