@@ -96,8 +96,11 @@ class Business(models.Model):
 
 
     @classmethod
-    def search_business(cls, name):
-      return cls.objects.filter(bs_name__icontains=name)
+    def search_business(cls, name,hood_id):
+      '''
+      Returns Business search based on its name and user neighbourhood
+      '''
+      return cls.objects.filter(bs_name__icontains=name , neighbourhood_id=hood_id)
 
 
 
