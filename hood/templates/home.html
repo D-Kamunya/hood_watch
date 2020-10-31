@@ -1,2 +1,8 @@
-<h2>Welcome to hood</h2>
-<a href="{% url 'user_logout'%}"> <button>Logout</button></a>
+{%extends 'base.html'%}
+{%block content%}
+<div class="container">
+  <h2>Welcome to hood</h2>
+  <a href="{% url 'user_logout'%}"> <button>Logout</button></a>
+</div>
+
+{%endblock%}
