@@ -6,7 +6,7 @@ from users.models import Profile
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db.models import F
-from .forms import BusinessForm,NewPostForm
+from .forms import BusinessForm,NewPostForm,UserProfileForm
 
 @login_required(login_url='/accounts/login/')
 def home_page(request):
@@ -101,11 +101,20 @@ def hood_posts(request):
 @login_required(login_url='/accounts/login/')
 def my_profile(request):
   profile=request.user.profile
+  if request.method == 'POST':
+        form = UserProfileForm(request.POST, request.FILES, instance=request.user.profile)
 
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Profile updated successfully')
+            return redirect('my_profile')
+  else:
+      form = UserProfileForm(instance=request.user.profile)
   
 
   context={
     'profile':profile,
+    'form':form
   }
 
   return render(request,'my_profile.html',context)  
