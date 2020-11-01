@@ -38,7 +38,8 @@
                     <img src="{%static 'img/houses.png'%}" class="z-depth-0 mr-4" alt="avatar image" height="35">
                   {%endif%}
                   {{hood.hood_name}}
-                  <button class="btn aqua-gradient float-right ml-auto">Join</button>
+                  <a href="{%url 'join_hood' hood.id%}"><button class="btn aqua-gradient float-right ml-auto">Join</button></a>
+                  
                 </p>
               </div>
               {%endfor%}
