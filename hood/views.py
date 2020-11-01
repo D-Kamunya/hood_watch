@@ -13,9 +13,24 @@ def home_page(request):
 
 
   hoods=NeighbourHood.get_all_neighbourhoods()
-  context={
-    'hoods':hoods
-  }
+  if request.user.profile.neighbourhood:
+    bss=Business.get_all_bs_by_hood(request.user.profile.neighbourhood_id)
+    posts=Post.objects.filter(neighbourhood=request.user.profile.neighbourhood)
+    police_services=EmergencyService.objects.filter(neighbourhood=request.user.profile.neighbourhood,service_type='Police') 
+    hos_services=EmergencyService.objects.filter(neighbourhood=request.user.profile.neighbourhood,service_type='Hospital') 
+    fire_services=EmergencyService.objects.filter(neighbourhood=request.user.profile.neighbourhood,service_type='Fire') 
+    context={
+      'hoods':hoods,
+      'bss':bss,
+      'p_services':police_services,
+      'h_services':hos_services,
+      'f_services':fire_services,
+      'posts':posts
+    }
+  else:
+    context={
+      'hoods':hoods
+    }
   return render(request,'home.html',context)
 
 
