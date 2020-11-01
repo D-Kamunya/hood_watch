@@ -1,8 +1,23 @@
 {%extends 'base.html'%}
 {%block content%}
 <div class="container">
-  <h2>Welcome to hood</h2>
-  <a href="{% url 'user_logout'%}"> <button>Logout</button></a>
+  {%if request.user.profile.neighbourhood%}
+  <h2>YOU HAVE A HOOD</h2>
+  {%else%}
+  <div class="container join-hood" style="margin-top:10%">
+    <div class="row no-gutters slider-text justify-content-center align-items-center">
+      <div class="col-lg-8 col-md-6 d-flex align-items-end fadeInUp">
+        <div class="text text-center">
+        <h1 class="mb-4">The Simplest <br>Way to Stay informed</h1>
+        <p style="font-size: 18px;">{{request.user.username | title}}, Welcome to Hood Watch.Join a Hood to access all services in your neighbourhood</p>
+        <button class="btn aqua-gradient" data-toggle="modal" data-target="#hoodsModal">JOIN HOOD</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  {%endif%}
 </div>
 
 {%endblock%}
