@@ -96,3 +96,16 @@ def hood_posts(request):
   }
 
   return render(request,'hood_posts.html',context)
+
+
+@login_required(login_url='/accounts/login/')
+def my_profile(request):
+  profile=request.user.profile
+
+  
+
+  context={
+    'profile':profile,
+  }
+
+  return render(request,'my_profile.html',context)  
