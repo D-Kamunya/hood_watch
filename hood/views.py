@@ -31,9 +31,13 @@ def join_hood(request,hood_id):
 @login_required(login_url='/accounts/login/')
 @user_has_hood
 def e_services(request):
-  services=EmergencyService.objects.filter(neighbourhood=request.user.profile.neighbourhood) 
+  police_services=EmergencyService.objects.filter(neighbourhood=request.user.profile.neighbourhood,service_type='Police') 
+  hos_services=EmergencyService.objects.filter(neighbourhood=request.user.profile.neighbourhood,service_type='Hospital') 
+  fire_services=EmergencyService.objects.filter(neighbourhood=request.user.profile.neighbourhood,service_type='Fire') 
   context={
-    'services':services
+    'p_services':police_services,
+    'h_services':hos_services,
+    'f_services':fire_services
   }
 
-  return render(request,'e_services.html') 
+  return render(request,'e_services.html',context) 
