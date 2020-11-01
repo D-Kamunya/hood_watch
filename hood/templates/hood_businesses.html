@@ -1,5 +1,9 @@
 {%extends 'base.html'%}
 {%load static%}
+{% load bootstrap3 %} 
+{%block title%}
+{{form.media }}
+{%endblock%}
 {%block styles%}
 {{block.super}}
 <link rel="stylesheet" href="{% static 'css/bs.css' %}">
@@ -38,7 +42,41 @@
     {%endfor%}
   </div>
   
+  <div class="row text-center">
+    <div class="col-6 mx-auto">
+      <button style="width: 50%;" data-toggle="modal" data-target="#addbsModal" class="btn btn-md aqua-gradient">Add Business</button>
+    </div>
+  </div>
   
+  <div class="modal fade" id="addbsModal" tabindex="-1" role="dialog" aria-labelledby="addbsLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header ">
+          <h5 class="modal-title text-center" id="exampleModalLabel">Add Business</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form  action="" method="post" enctype="multipart/form-data">
+            {%csrf_token%}
+        
+            {% bootstrap_form form%}
+            <div class="text-center">
+              <input type="submit" class=" btn btn-success btn-lg" value="ADD">
+            </div>
+            
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
 </div>  
 
 {%endblock%}

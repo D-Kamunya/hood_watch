@@ -6,6 +6,7 @@ from users.models import Profile
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db.models import F
+from .forms import BusinessForm
 
 @login_required(login_url='/accounts/login/')
 def home_page(request):
@@ -48,8 +49,23 @@ def e_services(request):
 @user_has_hood
 def hood_bs(request):
   bss=Business.get_all_bs_by_hood(request.user.profile.neighbourhood_id)
+
+  if request.method == "POST":
+      form = BusinessForm(request.POST, request.FILES)
+      if form.is_valid():
+          business = form.save(commit=False)
+          business.user = request.user
+          business.neighbourhood=request.user.profile.neighbourhood
+          business.save()
+          messages.success(request, f'Business successfully added')
+          form = BusinessForm() 
+  else:
+      form = BusinessForm()
+
+
   context={
     'bss':bss,
+    'form':form
   }
 
   return render(request,'hood_businesses.html',context)   
