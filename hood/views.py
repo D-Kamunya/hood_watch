@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .decorators import user_has_hood
-from .models import NeighbourHood
+from .models import NeighbourHood,EmergencyService
 from users.models import Profile
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -26,3 +26,14 @@ def join_hood(request,hood_id):
   NeighbourHood.objects.filter(id=hood_id).update(hood_occupants=F("hood_occupants") + 1)  
   messages.success(request, f'You joined {hood.hood_name} neighbourhood.')
   return redirect ('home_page')
+
+
+@login_required(login_url='/accounts/login/')
+@user_has_hood
+def e_services(request):
+  services=EmergencyService.objects.filter(neighbourhood=request.user.profile.neighbourhood) 
+  context={
+    'services':services
+  }
+
+  return render(request,'e_services.html') 
