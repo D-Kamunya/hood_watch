@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .decorators import user_has_hood
-from .models import NeighbourHood,EmergencyService,Business
+from .models import NeighbourHood,EmergencyService,Business,Post
 from users.models import Profile
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -69,3 +69,17 @@ def hood_bs(request):
   }
 
   return render(request,'hood_businesses.html',context)   
+
+
+
+
+@login_required(login_url='/accounts/login/')
+@user_has_hood
+def hood_posts(request):
+  posts=Post.objects.filter(neighbourhood=request.user.profile.neighbourhood)
+
+  context={
+    'posts':posts,
+  }
+
+  return render(request,'hood_posts.html',context)
