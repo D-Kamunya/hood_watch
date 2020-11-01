@@ -1,8 +1,7 @@
 {%extends "registration/base.html"%}
 {%block content%}
-<div class="card m-auto content">
+<div style="margin-top: 2rem;width: 50vw;" class="card m-auto content">
     <div class="card-body">
-        <h6 class="card-title"><span class="align-left">Sign in to continue</span> <span style="float:right">Not a member yet? <a href="{%url 'register_user'%}" class="text-info">Register now</a></span></h5>
         <form class="form-signin" method="POST">
             {% csrf_token %}
             <label for="username" class="sr-only">Username</label>
@@ -17,6 +16,9 @@
             <button class="btn btn-lg btn-info btn-block" type="submit">Sign in</button>
         </form>
     </div>
+</div>
+<div style="width:50vw" id = "no_account">
+    <h4>Don't have an account?<a href="{% url 'register_user' %}"> Sign up</a></h4>
 </div>
 
 {%endblock%}
