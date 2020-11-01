@@ -6,7 +6,7 @@ from users.models import Profile
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db.models import F
-from .forms import BusinessForm
+from .forms import BusinessForm,NewPostForm
 
 @login_required(login_url='/accounts/login/')
 def home_page(request):
@@ -78,8 +78,21 @@ def hood_bs(request):
 def hood_posts(request):
   posts=Post.objects.filter(neighbourhood=request.user.profile.neighbourhood)
 
+  if request.method == "POST":
+      form = NewPostForm(request.POST)
+      if form.is_valid():
+          post = form.save(commit=False)
+          post.user = request.user
+          post.neighbourhood=request.user.profile.neighbourhood
+          post.save()
+          messages.success(request, f'Post successfully uploaded')
+          form = NewPostForm()
+  else:
+      form = NewPostForm()
+
   context={
     'posts':posts,
+    'form':form
   }
 
   return render(request,'hood_posts.html',context)

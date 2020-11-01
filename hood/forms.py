@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Business
+from .models import Business,Post
 from pyuploadcare.dj.forms import ImageField
 
 
@@ -15,3 +15,9 @@ class BusinessForm(forms.ModelForm):
     class Meta:
         model = Business
         fields = ('bs_name','bs_description','bs_email', 'bs_photo')
+
+
+class NewPostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        exclude = ['user', 'neighbourhood']

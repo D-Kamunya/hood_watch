@@ -5,7 +5,13 @@
   box-sizing: border-box;
 }
 
-
+.my-card
+{
+    position:absolute;
+    left:45%;
+    top:-20px;
+    border-radius:50%;
+}
 #bs-container {
   width: 350px;
   padding: 20px;
