@@ -133,3 +133,28 @@ def my_profile(request):
   }
 
   return render(request,'my_profile.html',context)  
+
+
+
+
+@login_required(login_url='/accounts/login/')
+@user_has_hood
+def search_business(request):
+
+    if 'bs_name' in request.GET and request.GET["bs_name"]:
+        search_term = request.GET.get("bs_name")
+        bss =Business.search_business(search_term,request.user.profile.neighbourhood_id)
+        message = f"{search_term}"
+        
+        context={
+          "message":message,
+          'bss':bss
+        }
+        return render(request, 'search.html',context)
+
+    else:
+        message = "You haven't searched for any business"
+        context={
+          "message":message,
+        }
+        return render(request, 'search.html',context) 
