@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from django.urls.conf import include
+from django.conf.urls import url,include
 from hood import views as hood_views
 from users import views as user_views
 
@@ -24,6 +24,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('hood.urls')),
     path('accounts/register',user_views.register_user,name='register_user'),
-    path('accounts/login',user_views.user_login,name='user_login'),
+    url(r'^accounts/login/$',user_views.user_login,name='user_login'),
     path('logout', user_views.user_logout, name='user_logout'),
 ]
