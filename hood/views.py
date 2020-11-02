@@ -8,7 +8,7 @@ from django.contrib import messages
 from django.db.models import F
 from .forms import BusinessForm,NewPostForm,UserProfileForm
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='/accounts/login')
 def home_page(request):
 
 
@@ -35,7 +35,7 @@ def home_page(request):
 
 
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='/accounts/login')
 def join_hood(request,hood_id):
   hood=NeighbourHood.find_neighbourhood(hood_id)
   Profile.objects.filter(user=request.user).update(neighbourhood=hood)
@@ -44,7 +44,7 @@ def join_hood(request,hood_id):
   return redirect ('home_page')
 
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='/accounts/login')
 @user_has_hood
 def e_services(request):
   police_services=EmergencyService.objects.filter(neighbourhood=request.user.profile.neighbourhood,service_type='Police') 
@@ -60,7 +60,7 @@ def e_services(request):
 
 
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='/accounts/login')
 @user_has_hood
 def hood_bs(request):
   bss=Business.get_all_bs_by_hood(request.user.profile.neighbourhood_id)
@@ -88,7 +88,7 @@ def hood_bs(request):
 
 
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='/accounts/login')
 @user_has_hood
 def hood_posts(request):
   posts=Post.objects.filter(neighbourhood=request.user.profile.neighbourhood)
@@ -113,7 +113,7 @@ def hood_posts(request):
   return render(request,'hood_posts.html',context)
 
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='/accounts/login')
 def my_profile(request):
   profile=request.user.profile
   if request.method == 'POST':
@@ -137,7 +137,7 @@ def my_profile(request):
 
 
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='/accounts/login')
 @user_has_hood
 def search_business(request):
 
